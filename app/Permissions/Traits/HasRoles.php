@@ -46,7 +46,16 @@ trait HasRoles
 	}
 
 
-	// TODO : Give Role to user
-	// TODO : invoke Role from user
+	public function refreshRoles(...$roles)
+	{
+		$roles = $this->getAllRoles(array_flatten($roles));
+
+		$this->roles()->detach();
+
+		$this->roles()->saveMany($roles);
+
+		return $this;
+
+	}
 
 }

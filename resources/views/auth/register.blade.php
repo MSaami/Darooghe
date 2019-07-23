@@ -1,75 +1,56 @@
 @extends('layouts.app')
-
+@section('title' , __('auth.register user'))
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+<div class="row justify-content-center">
+    <div class="col-md-8 mt-5">
+        @include('partials.alerts')
+        <div class="card">
+            <div class="card-header">
+                @lang('auth.register user')
+            </div>
+            <div class="card-body">
+                <form method="POST" action="/register">
+                    @csrf
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="email">@lang('auth.email')</label>
+                        <div class="col-sm-9">
+                            <input type="email" name="email" class="form-control" id="email" value="{{old('email')}}"
+                            aria-describedby="emailHelp" placeholder="@lang('auth.enter your email')">
                         </div>
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="name">@lang('auth.name')</label>
+                        <div class="col-sm-9">
+                            <input value="{{old('name')}}" type="text" name="name" class="form-control" id="name"
+                            placeholder="@lang('auth.enter your name')">
                         </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="password">@lang('auth.password')</label>
+                        <div class="col-sm-9">
+                            <input  type="password" name="password" class="form-control" id="password"
+                            placeholder="@lang('auth.enter your password')">
                         </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="password_confirmation">@lang('auth.confirm password')</label>
+                        <div class="col-sm-9">
+                            <input  type="password" name="password_confirmation" class="form-control"
+                            id="password_confirmation" placeholder="@lang('auth.confirm your password')">
                         </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
+                    </div>
+                    <div class="offset-sm-3">
+                        @if ($errors->any())
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <div class="small mb-2">
+                                <li class="text-danger">{{$error}}</li>
                             </div>
-                        </div>
-                    </form>
-                </div>
+                            @endforeach
+                        </ul>
+                        @endif
+                    </div>                    <button type="submit" class="btn btn-primary">@lang('auth.register')</button>
+                </form>
             </div>
         </div>
     </div>

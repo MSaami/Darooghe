@@ -9,6 +9,8 @@ class Role extends Model
 {
 	use HasPermissions;
 
+	protected $fillable = ['name' , 'persian_name'];
+
 
 	public function permissions()
 	{
