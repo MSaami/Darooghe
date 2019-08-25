@@ -20,6 +20,9 @@
                     {{Auth::user()->name}}
                 </a>
                 <div class="dropdown-menu logout-btn" aria-labelledby="navbarDropdown">
+                    @can('show panel')
+                <a href="{{route('users.index')}}" class="dropdown-item">@lang('users.panel')</a>
+                    @endcan
                     <a onclick="event.preventDefault();document.getElementById('logout-form').submit()" class="dropdown-item" href="#">خروج</a>
                 </div>
                 <form id="logout-form" action="/logout" method="POST" style="display: none;">
